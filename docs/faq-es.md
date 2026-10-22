@@ -47,7 +47,7 @@ Si utiliza el proxy inverso nginx, debe agregar el siguiente código al archivo 
     chunked_transfer_encoding on;  # 开启分块传输编码
     tcp_nopush on;  # 开启TCP NOPUSH选项，禁止Nagle算法
     tcp_nodelay on;  # 开启TCP NODELAY选项，禁止延迟ACK算法
-    keepalive_timeout 300;  # 设定keep-alive超时时间为65秒
+    keepalive_timeout 300;
 
 Si está implementando en Netlify y este problema aún está pendiente de resolución, tenga paciencia.
 
@@ -89,7 +89,7 @@ Puede haber muchas razones, por favor solucione los problemas en orden:
 *   Compruebe primero si la versión del código es la última versión, actualice a la última versión e inténtelo de nuevo;
 *   Compruebe si la clave API está configurada correctamente y si el nombre de la variable de entorno debe estar en mayúsculas y subrayado;
 *   Compruebe si la clave API está disponible;
-*   Si aún no puede identificar el problema después de los pasos anteriores, envíe un nuevo problema en el campo de problema con el registro de tiempo de ejecución de Verbel o el registro de tiempo de ejecución de Docker.
+*   Si persiste, abra un issue con extractos mínimos de logs de Vercel/Docker; elimine claves, tokens, cookies, contraseñas, datos personales y rutas privadas.
 
 ## ¿Por qué la respuesta de ChatGPT es confusa?
 
@@ -150,8 +150,8 @@ Vaya a chat.openai.com para registrarse. Es necesario:
 
 ## ¿Cómo activo la API de OpenAI? ¿Cómo verifico mi saldo de API?
 
-Dirección del sitio web oficial (se requiere escalera): https://platform.openai.com/account/usage
-Algunos internautas han construido un agente de consulta de saldo sin escalera, por favor pídales a los internautas que lo obtengan. Identifique si la fuente es confiable para evitar la fuga de la clave API.
+El uso de la API y los créditos concedidos se consultan por separado; vea la [guía oficial de OpenAI](https://help.openai.com/en/articles/10478918-reviewing-api-usage-and-costs).
+No comparta su clave API con sitios o proxies de terceros para consultar el saldo.
 
 ## ¿Por qué mi cuenta OpenAI recién registrada no tiene un saldo API?
 
@@ -181,11 +181,11 @@ Por favor consulte:[#371](https://github.com/Yidadaa/ChatGPT-Next-Web/issues/371
 
 *   Si tiene permisos de GPT 4 y usa las API de GPT 4 a diario, el monto de su factura aumentará rápidamente porque el precio de GPT 4 es aproximadamente 15 veces mayor que el de GPT 3.5;
 *   Si está usando GPT 3.5 y no lo usa con mucha frecuencia y aún nota que su factura aumenta rápidamente, siga estos pasos para solucionar problemas ahora:
-    *   Vaya al sitio web oficial de OpenAI para verificar sus registros de consumo de API Key, si su token se consume cada hora y se consumen decenas de miles de tokens cada vez, entonces su clave debe haberse filtrado, elimine y regenere inmediatamente.**No verifique su saldo en un sitio web desordenado.**
+    *   Vaya al sitio web oficial de OpenAI para verificar sus registros de consumo de API Key, si su token se consume cada hora y se consumen decenas de miles de tokens cada vez, su clave podría haberse usado indebidamente. Si sospecha una filtración, elimínela y genérela de nuevo de inmediato.**No verifique su saldo en un sitio web desordenado.**
     *   Si su contraseña se acorta, como letras dentro de 5 dígitos, entonces el costo de voladura es muy bajo, se recomienda que busque en el registro de Docker para ver si alguien ha probado muchas combinaciones de contraseñas, palabra clave: got access code
-*   A través de los dos métodos anteriores, puede localizar la razón por la cual su token se consume rápidamente:
-    *   Si el registro de consumo de OpenAI es anormal, pero no hay ningún problema con el registro de Docker, entonces la clave API se filtra;
-    *   Si el registro de Docker encuentra una gran cantidad de registros de código de acceso de obtención, entonces la contraseña ha sido destruida.
+*   Estas comprobaciones ayudan a investigar el consumo, pero no demuestran una filtración:
+    *   Si el registro de consumo de OpenAI es anormal, pero no hay ningún problema con el registro de Docker, el uso indebido de la clave API es una posibilidad, no una filtración confirmada;
+    *   Muchos registros de obtención de códigos de acceso pueden indicar intentos de adivinar contraseñas; no demuestran un acceso exitoso.
 
 ## ¿Cómo se facturan las API?
 

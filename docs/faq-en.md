@@ -47,7 +47,7 @@ proxy_buffering off;  # Turn off proxy buffering
 chunked_transfer_encoding on;  # Turn on chunked transfer encoding
 tcp_nopush on;  # Turn on TCP NOPUSH option, disable Nagle algorithm
 tcp_nodelay on;  # Turn on TCP NODELAY option, disable delay ACK algorithm
-keepalive_timeout 300;  # Set keep-alive timeout to 65 seconds
+keepalive_timeout 300;
 ```
 
 If you are deploying on netlify, this issue is still waiting to be resolved, please be patient.
@@ -90,7 +90,7 @@ There could be many reasons, please check the following in order:
 - First, check if your code version is the latest version, update to the latest version and try again;
 - Check if the api key is set correctly, the environment variable name must be uppercase with underscores;
 - Check if the api key is available;
-- If you still cannot determine the problem after going through the above steps, please submit a new issue in the issue area and attach the runtime log of vercel or the log of docker runtime.
+- If still unresolved, open an issue with minimal Vercel/Docker log excerpts; remove keys, tokens, cookies, passwords, personal data and private paths.
 
 ## Why does ChatGPT's reply get garbled
 
@@ -154,8 +154,8 @@ Go to chat.openai.com to register. You will need:
 
 ## How to activate OpenAI API? How to check API balance?
 
-Official website (requires VPN): https://platform.openai.com/account/usage
-Some users have set up a proxy to check the balance without a VPN; ask online friends for access. Please verify the source is reliable to avoid API Key leakage.
+API usage and credit grants are shown separately; see [OpenAI's official guide](https://help.openai.com/en/articles/10478918-reviewing-api-usage-and-costs).
+Never share your API key with third-party balance-checking sites or proxies.
 
 ## Why doesn't my new OpenAI account have an API balance?
 
@@ -184,8 +184,8 @@ Please refer to: [#371](https://github.com/Yidadaa/ChatGPT-Next-Web/issues/371)
 
 - If you have GPT-4 access and use GPT-4 API regularly, your bill will increase rapidly since GPT-4 pricing is about 15 times higher than GPT-3.5;
 - If you are using GPT-3.5 and not using it frequently, but still find your bill increasing fast, please troubleshoot immediately using these steps:
-  - Check your API key consumption record on the OpenAI website; if your token is consumed every hour and each time consumes tens of thousands of tokens, your key must have been leaked. Please delete it and regenerate it immediately. **Do not check your balance on random websites.**
+  - Check your API key consumption record on the OpenAI website; if your token is consumed every hour and each time consumes tens of thousands of tokens, your key may have been misused. If compromise is suspected, delete and regenerate it immediately. **Do not check your balance on random websites.**
   - If your password is short, such as 5 characters or fewer, the cost of brute-forcing is very low. It is recommended to search docker logs to confirm whether someone has tried a large number of password combinations. Keyword: got access code
-- By following these two methods, you can locate the reason for your token's rapid consumption:
-  - If the OpenAI consumption record is abnormal but the Docker log has no issues, it means your API key has been leaked;
-  - If the Docker log shows a large number of got access code brute-force attempts, your password has been cracked.
+- These checks can help investigate rapid token consumption, but do not prove compromise:
+  - If the OpenAI consumption record is abnormal but the Docker log has no issues, API key misuse is one possibility, not a confirmed leak;
+  - A large number of got access code entries in Docker logs may reflect guessing attempts; this does not prove successful access.

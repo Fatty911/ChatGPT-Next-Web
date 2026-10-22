@@ -48,7 +48,7 @@ proxy_buffering off;  # 关闭代理缓冲
 chunked_transfer_encoding on;  # 开启分块传输编码
 tcp_nopush on;  # 开启TCP NOPUSH选项，禁止Nagle算法
 tcp_nodelay on;  # 开启TCP NODELAY选项，禁止延迟ACK算法
-keepalive_timeout 300;  # 设定keep-alive超时时间为65秒
+keepalive_timeout 300;
 ```
 
 如果你是在 netlify 部署，此问题依然等待解决，请耐心等待。
@@ -91,7 +91,7 @@ keepalive_timeout 300;  # 设定keep-alive超时时间为65秒
 - 请先检查你的代码版本是否为最新版本，更新到最新版本后重试；
 - 请检查 api key 是否设置正确，环境变量名称必须为全大写加下划线；
 - 请检查 api key 是否可用；
-- 如果经历了上述步骤依旧无法确定问题，请在 issue 区提交一个新 issue，并附上 vercel 的 runtime log 或者 docker 运行时的 log。
+- 若仍未解决，请在 issue 附最少量 Vercel/Docker 日志片段，并移除密钥、token、Cookie、密码、个人信息及私有路径。
 
 ## 为什么 ChatGPT 的回复会乱码
 
@@ -172,8 +172,8 @@ Vercel 是一个全球化的云平台，旨在帮助开发人员更快地构建�
 
 ## 怎么开通 OpenAI API? 怎么查询 API 余额？
 
-官网地址（需梯子）：https://platform.openai.com/account/usage
-有网友搭建了无需梯子的余额查询代理，请询问网友获取。请鉴别来源是否可靠，以免 API Key 泄露。
+[OpenAI 官方指南](https://help.openai.com/en/articles/10478918-reviewing-api-usage-and-costs)：API 用量与赠金余额分开查询。
+不要向第三方余额查询网站或代理分享 API key。
 
 ## 我新注册的 OpenAI 账号怎么没有 API 余额？
 
@@ -203,11 +203,11 @@ OpenAI 只接受指定地区的信用卡（中国信用卡无法使用）。一�
 
 - 如果你有 GPT 4 的权限，并且日常在使用 GPT 4 api，那么由于 GPT 4 价格是 GPT 3.5 的 15 倍左右，你的账单金额会急速膨胀；
 - 如果你在使用 GPT 3.5，并且使用频率并不高，仍然发现自己的账单金额在飞快增加，那么请马上按照以下步骤排查：
-  - 去 openai 官网查看你的 api key 消费记录，如果你的 token 每小时都有消费，并且每次都消耗了上万 token，那你的 key 一定是泄露了，请立即删除重新生成。**不要在乱七八糟的网站上查余额。**
+  - 去 openai 官网查看你的 api key 消费记录，如果你的 token 每小时都有消费，并且每次都消耗了上万 token，密钥可能被滥用；若怀疑已泄露，请立即删除并重新生成。**不要在乱七八糟的网站上查余额。**
   - 如果你的密码设置很短，比如 5 位以内的字母，那么爆破成本是非常低的，建议你搜索一下 docker 的日志记录，确认是否有人大量尝试了密码组合，关键字：got access code
-- 通过上述两个方法就可以定位到你的 token 被快速消耗的原因：
-  - 如果 openai 消费记录异常，但是 docker 日志没有问题，那么说明是 api key 泄露；
-  - 如果 docker 日志发现大量 got access code 爆破记录，那么就是密码被爆破了。
+- 上述检查有助于调查消耗原因，但不能确证泄露：
+  - 如果 openai 消费记录异常，但是 docker 日志没有问题，API key 被滥用只是一种可能，尚不能确证泄露；
+  - Docker 日志中大量 got access code 记录可能表示猜测密码的尝试，不能证明成功访问。
 
 ## API 是怎么计费的？
 
