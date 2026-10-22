@@ -19,7 +19,7 @@
 11. "환경 변수"의 경우 ">"를 클릭한 다음 "변수 추가"를 클릭합니다. 다음에 따라 정보를 입력합니다:
 
     - node_version=20.1`.
-    - next_telemetry_disable=1`.
+    - NEXT_TELEMETRY_DISABLED=1`.
     - `OPENAI_API_KEY=자신의 API 키`
     - ``yarn_version=1.22.19``
     - ``php_version=7.4``.
