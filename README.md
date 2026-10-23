@@ -138,11 +138,11 @@ For enterprise inquiries, please contact: **business@nextchat.club**
 
 If you have deployed your own project with just one click following the steps above, you may encounter the issue of "Updates Available" constantly showing up. This is because Vercel will create a new project for you by default instead of forking this project, resulting in the inability to detect updates correctly.
 
-We recommend that you follow the steps below to re-deploy:
+Prefer updating the existing project. If redeployment is needed:
 
-- Delete the original repository;
+- Keep the original repository and deployment, and safely back up unique changes and settings;
 - Use the fork button in the upper right corner of the page to fork this project;
-- Choose and deploy in Vercel again, [please see the detailed tutorial](./docs/vercel-cn.md).
+- Deploy the fork in Vercel and migrate needed changes; verify the replacement before considering retirement of the old deployment ([tutorial](./docs/vercel-cn.md)).
 
 ### Enable Automatic Updates
 
